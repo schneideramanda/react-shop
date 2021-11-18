@@ -36,7 +36,7 @@ const Filter = ({ openFilter }) => {
   };
 
   return (
-    <Grid
+    <Box
       display={openFilter ? 'block' : 'none'}
       mt={4}
       p={2}
@@ -44,33 +44,39 @@ const Filter = ({ openFilter }) => {
       borderRadius='md'
       textAlign='center'
     >
-      <Text>Sort by:</Text>
-      <Select
-        mt={2}
-        borderColor='teal.500'
-        placeholder='Select option'
-        value={sort}
-        onChange={handleSort}
-      >
-        <option value='high'>Highest Price</option>
-        <option value='low'>Lowest Price</option>
-      </Select>
-      <Text mt={4}>Category:</Text>
-      <Select
-        mt={2}
-        borderColor='teal.500'
-        value={category}
-        onChange={handleCategory}
-        placeholder='Select option'
-      >
-        {formattedCategories &&
-          formattedCategories.map((opt, ind) => (
-            <option key={ind} value={opt}>
-              {opt}
-            </option>
-          ))}
-      </Select>
-    </Grid>
+      <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={5}>
+        <Box>
+          <Text>Sort by:</Text>
+          <Select
+            mt={2}
+            borderColor='teal.500'
+            placeholder='Select option'
+            value={sort}
+            onChange={handleSort}
+          >
+            <option value='high'>Highest Price</option>
+            <option value='low'>Lowest Price</option>
+          </Select>
+        </Box>
+        <Box>
+          <Text>Category:</Text>
+          <Select
+            mt={2}
+            borderColor='teal.500'
+            value={category}
+            onChange={handleCategory}
+            placeholder='Select option'
+          >
+            {formattedCategories &&
+              formattedCategories.map((opt, ind) => (
+                <option key={ind} value={opt}>
+                  {opt}
+                </option>
+              ))}
+          </Select>
+        </Box>
+      </Grid>
+    </Box>
   );
 };
 

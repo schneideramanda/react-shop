@@ -36,9 +36,13 @@ const cart = createSlice({
       const index = state.cart.findIndex((item) => item.id === action.payload);
       state.cart[index].quantity--;
     },
+    resetCart: (state, action) => {
+      state.cart = [];
+    },
   },
 });
 
-export const { addCart, removeCart, addItem, removeItem } = cart.actions;
+export const { addCart, removeCart, addItem, removeItem, resetCart } =
+  cart.actions;
 export default cart.reducer;
 export const cartSelector = (state) => state.cart;
