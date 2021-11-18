@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { createSelector } from 'reselect';
 
+// GET Request with the list containing all the products
 export const getProducts = createAsyncThunk(
   'products/getProducts',
   async () => {
@@ -20,15 +21,21 @@ export const getProducts = createAsyncThunk(
 const initialState = {
   products: [],
   status: '',
-  filterTerm: '',
+  filterTerm: {
+    sort: '',
+    category: '',
+  },
 };
 
 const products = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    changeFilter: (state, action) => {
-      state.filterTerm = action.payload;
+    changeSort: (state, action) => {
+      state.filterTerm.sort = action.payload;
+    },
+    changeCategory: (state, action) => {
+      state.filterTerm.category = action.payload;
     },
   },
   extraReducers: {
@@ -58,10 +65,15 @@ export const selectProductsPrice = createSelector(
   selectAllProducts,
   selectFilterTerm,
   (products, filterTerm) => {
-    const filteredProducts = [...products];
-    if (filterTerm === 'high') {
+    let filteredProducts = [...products];
+    if (filterTerm.category !== '') {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.category === filterTerm.category.toLowerCase()
+      );
+    }
+    if (filterTerm.sort === 'high') {
       return filteredProducts.sort((a, b) => b.price - a.price);
-    } else if (filterTerm === 'low') {
+    } else if (filterTerm.sort === 'low') {
       return filteredProducts.sort((a, b) => a.price - b.price);
     } else {
       return filteredProducts;
@@ -69,5 +81,13 @@ export const selectProductsPrice = createSelector(
   }
 );
 
-export const { changeFilter } = products.actions;
+// Returns all the category types available for filtering
+export const selectAllCategories = createSelector(
+  selectAllProducts,
+  (products) => {
+    return [...new Set(products.map((product) => product.category))];
+  }
+);
+
+export const { changeSort, changeCategory } = products.actions;
 export default products.reducer;

@@ -7,7 +7,6 @@ import Item from './Item';
 // Creates the list containing all the shop items
 const ListItems = () => {
   const productsList = useSelector(selectProductsPrice);
-  console.log(productsList);
 
   return (
     <Grid templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={0.5}>

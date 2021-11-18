@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+// GET Request for the single product using their unique ID
 export const getItem = createAsyncThunk('item/getItem', async (id) => {
   return await axios
     .get(`https://fakestoreapi.com/products/${id}`)

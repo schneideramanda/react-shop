@@ -1,8 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// This will allow users to keep their cart information,
+// even after refreshing the page
 const savedCart = window.localStorage.getItem('cart');
 const parsedCart = JSON.parse(savedCart);
 
+// Get information from localStorage OR start as an empty array
 const initialState = {
   cart: parsedCart || [],
 };
