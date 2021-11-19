@@ -1,6 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const savedToken = window.localStorage.getItem('userToken');
+const parsedToken = JSON.parse(savedToken);
+
+const savedUser = window.localStorage.getItem('username');
+const parsedUser = JSON.parse(savedUser);
+
 export const postUser = createAsyncThunk(
   'user/postUser',
   async (user, password) => {
@@ -18,13 +24,13 @@ export const postUser = createAsyncThunk(
 );
 
 const initialState = {
-  token: '',
+  token: parsedToken || '',
   status: '',
   error: {
     msg: '',
     status: '',
   },
-  user: '',
+  user: parsedUser || '',
 };
 
 const user = createSlice({

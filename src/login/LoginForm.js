@@ -28,6 +28,8 @@ const LoginForm = () => {
     dispatch(getUser(username));
     dispatch(postUser(username, password));
 
+    window.localStorage.setItem('username', JSON.stringify(username));
+
     setUsername('');
     setPassword('');
 

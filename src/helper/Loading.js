@@ -18,7 +18,6 @@ const Loading = () => {
         color='teal.500'
         mt={250}
       />
-      ;
     </Box>
   );
 };

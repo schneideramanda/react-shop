@@ -25,6 +25,10 @@ const Login = () => {
     }
   }, [status, msg, toast, dispatch]);
 
+  useEffect(() => {
+    window.localStorage.setItem('userToken', JSON.stringify(token));
+  }, [token]);
+
   return <Box>{token ? <Navigate to='/' /> : <LoginForm />}</Box>;
 };
 
