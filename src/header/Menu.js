@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link as ReactLink } from 'react-router-dom';
-import { Box, Link, Stack, Text } from '@chakra-ui/layout';
+import { Box, Flex, Link, Stack, Text } from '@chakra-ui/layout';
 import { useSelector } from 'react-redux';
 import { cartSelector } from '../store/cart';
+import { userSelector } from '../store/user';
 
 const Menu = ({ isOpen, toggle }) => {
   const { cart } = useSelector(cartSelector);
+  const { token, user } = useSelector(userSelector);
 
   return (
     <Box
@@ -24,11 +26,31 @@ const Menu = ({ isOpen, toggle }) => {
         </Link>
         <Link as={ReactLink} to='/cart' onClick={toggle}>
           {cart.length > 0 ? (
-            <Text>Cart ({cart.length})</Text>
+            <Flex>
+              <Text>Cart </Text>
+              <Text ml={2} fontWeight='500' color='teal.500'>
+                ({cart.length})
+              </Text>
+            </Flex>
           ) : (
             <Text>Cart</Text>
           )}
         </Link>
+        {token ? (
+          <Link
+            color='teal.500'
+            fontWeight='bold'
+            as={ReactLink}
+            to='/user'
+            onClick={toggle}
+          >
+            {user}
+          </Link>
+        ) : (
+          <Link as={ReactLink} to='/login' onClick={toggle}>
+            Login
+          </Link>
+        )}
       </Stack>
     </Box>
   );

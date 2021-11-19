@@ -9,11 +9,12 @@ import {
 import { CloseButton } from '@chakra-ui/close-button';
 import React, { useState } from 'react';
 import CartList from './CartList';
-import { useDispatch } from 'react-redux';
-import { resetCart } from '../store/cart';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartSelector, resetCart } from '../store/cart';
 
 const Cart = () => {
   const [notification, setNotification] = useState(false);
+  const { cart } = useSelector(cartSelector);
   const dispatch = useDispatch();
 
   function handleBuy() {
@@ -58,9 +59,11 @@ const Cart = () => {
             mb={5}
             mr={8}
           >
-            <Button colorScheme='teal' size='lg' onClick={handleBuy}>
-              Buy!
-            </Button>
+            {cart.length !== 0 && (
+              <Button colorScheme='teal' size='lg' onClick={handleBuy}>
+                Buy!
+              </Button>
+            )}
           </Box>
         </Box>
       )}

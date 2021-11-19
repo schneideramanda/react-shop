@@ -7,6 +7,8 @@ import { Box } from '@chakra-ui/layout';
 import { useDispatch } from 'react-redux';
 import { getProducts } from './store/products';
 import Product from './product/Product';
+import Login from './login/Login';
+import User from './user/User';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -23,6 +25,8 @@ const App = () => {
           <Route path='' element={<Home />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='product/:id' element={<Product />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/user' element={<User />} />
         </Routes>
       </BrowserRouter>
     </Box>
